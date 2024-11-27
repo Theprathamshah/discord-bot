@@ -1,8 +1,8 @@
 
 import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from 'dotenv'
-import { connectDB } from "./database.js";
-import { verifyUserProfile } from "./src/verify/index.js";
+import { connectDB } from "./database/database.js";
+import { verifyUserProfile } from "./verify/index.js";
 
 dotenv.config();
 connectDB()
