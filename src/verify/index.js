@@ -1,5 +1,6 @@
 import {getRoleName, ensureRoleExists } from '../utils/rolesUtil.js'
 import { fetchChessProfile } from '../utils/fetchProfile.js';
+import { User } from '../model/userSchema.js';
 
 export const verifyUserProfile = async (interaction) => {
   await interaction.deferReply();
@@ -35,6 +36,19 @@ export const verifyUserProfile = async (interaction) => {
     });
     await member.roles.add(verifiedRole);
     await member.roles.add(role);
+    const isUser = User.findOne({discordUserId: discordUser.id});
+    console.log('is user value ', isUser);
+    
+    if(isUser) {
+      const newUser = new User({
+        discordUserId : discordUser.id,
+        discordUsername: discordUser.username,
+        chessComUsername: platform === "chess.com" ? username : null,
+        lichessUsername : platform === "lichess" ? username: null
+      })
+      await newUser.save();
+      console.log('saved user at verification');
+    }
 
     await interaction.editReply(
       `✅ User ${discordUser.username} successfully verified as "${profileUserName}" with a rating of ${highestRating} and assigned the roles: "Verified" and "${roleName}".`

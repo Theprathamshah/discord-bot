@@ -40,7 +40,15 @@ const commands = [
     },
     {
         name:'profile',
-        description: "provides user's chess platform's profile"
+        description: "provides user's chess platform's profile",
+        options: [
+            {
+                name: 'user',
+                description: 'Enter discord user',
+                type: 6,
+                required: true
+            }
+        ]
     }
 ];
 const rest = new REST({version:'10'}).setToken(token);
