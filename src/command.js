@@ -1,12 +1,10 @@
-import {Options, REST, Routes} from 'discord.js'
+import { REST, Routes} from 'discord.js'
 import dotenv from 'dotenv'
 
 dotenv.config();
 
 const token = process.env.BOT_TOKEN;
 const CLIENT_ID = process.env.USER_ID;
-
-
 const commands = [
     {
         name: 'ping',
@@ -40,6 +38,18 @@ const commands = [
             },
         ],
     },
+    {
+        name:'profile',
+        description: "provides user's chess platform's profile",
+        options: [
+            {
+                name: 'user',
+                description: 'Enter discord user',
+                type: 6,
+                required: true
+            }
+        ]
+    }
 ];
 const rest = new REST({version:'10'}).setToken(token);
 
